@@ -6,23 +6,22 @@ import java.util.Properties;
 
 public class ConfigReader{
 
-    private int batchSize = 1;
+    private int batchSize = 100000;
     private String sourceRedisHost = "127.0.0.1";
     private Integer sourceRedisPort = 6379;
     private String destRedisHost = "127.0.0.1";
     private Integer destRedisPort = 6380;
-    private Integer maxScan = 1;
-    private Integer maxConnection = 50;
+    private Integer scanCount = 10000;
+    private Integer maxConnection = 100;
     private Integer minIdle = 20;
-    private boolean useDumpAndRestore = false;
+    private boolean useDumpAndRestore = true;
 
     private static final String filePathKey = "config.file.path";
     private static final String sourceRedisHostKey = "redis.source.host";
     private static final String sourceRedisPortKey = "redis.source.port";
     private static final String destRedisHostKey = "redis.dest.host";
     private static final String destRedisPortKey = "redis.dest.port";
-    private static final String maxScanKey = "redis.scan.size";
-    private static final String batchSizeKey = "bath.size";
+
 
 
 
@@ -47,16 +46,11 @@ public class ConfigReader{
             configReader.sourceRedisPort = Integer.parseInt(prop.getProperty(sourceRedisPortKey,configReader.sourceRedisPort+""));
             configReader.destRedisHost = prop.getProperty(destRedisHostKey,configReader.destRedisHost);
             configReader.destRedisPort = Integer.parseInt(prop.getProperty(destRedisPortKey,configReader.destRedisPort+""));
-            configReader.batchSize = Integer.parseInt(prop.getProperty(batchSizeKey,configReader.batchSize+""));
-            configReader.maxScan = Integer.parseInt(prop.getProperty(maxScanKey,configReader.maxScan+""));
-
 
             configReader.sourceRedisHost = System.getProperty(sourceRedisHostKey,configReader.sourceRedisHost);
             configReader.sourceRedisPort = Integer.parseInt(System.getProperty(sourceRedisPortKey,configReader.sourceRedisPort+""));
             configReader.destRedisHost = System.getProperty(destRedisHostKey,configReader.destRedisHost);
             configReader.destRedisPort = Integer.parseInt(System.getProperty(destRedisPortKey,configReader.destRedisPort+""));
-            configReader.batchSize = Integer.parseInt(System.getProperty(batchSizeKey,configReader.batchSize+""));
-            configReader.maxScan = Integer.parseInt(prop.getProperty(maxScanKey,configReader.maxScan+""));
 
         }
         return configReader;
@@ -83,8 +77,8 @@ public class ConfigReader{
         return destRedisPort;
     }
 
-    public Integer getMaxScan() {
-        return maxScan;
+    public Integer getScanCount() {
+        return scanCount;
     }
 
     public Integer getMaxConnection() {
@@ -94,7 +88,6 @@ public class ConfigReader{
     public Integer getMinIdle() {
         return minIdle;
     }
-
 
     public boolean getUseDumpAndRestore() {
         return useDumpAndRestore;
@@ -108,9 +101,8 @@ public class ConfigReader{
                 ", sourceRedisPort=" + sourceRedisPort +
                 ", destRedisHost='" + destRedisHost + '\'' +
                 ", destRedisPort=" + destRedisPort +
-                ", maxScan=" + maxScan +
-                ", maxConnection=" + maxConnection +
-                ", minIdle=" + minIdle +
+                ", scanCount=" + scanCount +
+                ", useDumpAndRestore=" + useDumpAndRestore +
                 '}';
     }
 }

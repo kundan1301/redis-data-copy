@@ -7,12 +7,12 @@ public class Main {
     public static void main(String[] args){
         //System.setProperty("config.file.path","/Users/kundankr/Downloads/redis.properties");
         //System.out.println(ConfigReader.getInstance());
-        intialize();
+        initialize();
         Migrator migrator = new Migrator();
         migrator.migrate();
     }
 
-    public static void intialize(){
+    public static void initialize(){
         ConfigReader.getInstance();
         Jedis jedis = SourceRedisPool.getClient();
         SourceRedisPool.returnClient(jedis);

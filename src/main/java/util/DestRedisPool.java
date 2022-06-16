@@ -16,7 +16,7 @@ public class DestRedisPool{
                     ConfigReader config = ConfigReader.getInstance();
                     GenericObjectPoolConfig<Jedis> poolConfig = new GenericObjectPoolConfig<>();
                     poolConfig.setMaxTotal(config.getMaxConnection());
-                    poolConfig.setMaxIdle(config.getMaxScan());
+                    poolConfig.setMaxIdle(config.getMaxConnection());
                     poolConfig.setMinIdle(config.getMinIdle());
                     destRedisPool = new DestRedisPool();
                     destRedisPool.pool = new JedisPool(poolConfig,config.getDestRedisHost(),config.getDestRedisPort());
